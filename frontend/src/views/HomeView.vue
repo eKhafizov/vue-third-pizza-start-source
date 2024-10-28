@@ -1,23 +1,24 @@
 
 <script setup>
 import dough from '@/mocks/dough.json'
-import ingridients from '@/mocks/ingredients.json'
 import sauces from '@/mocks/sauces.json'
 import sizes from '@/mocks/sizes.json'
+import ingredients from "@/mocks/ingredients.json";
 import DoughConstructor from "@/modules/constructor/DoughConstructor.vue";
 import SizeConstructor from "@/modules/constructor/SizeConstructor.vue";
 import SauceConstructor from "@/modules/constructor/SauceConstructor.vue";
 import PizzaConstructor from "@/modules/constructor/PizzaConstructor.vue";
 import {reactive} from "vue";
-import IngridientConstructor from "@/modules/constructor/IngridientConstructor.vue";
-import stateIngridients from "@/mocks/stateIngridients";
+import IngredientConstructor from "@/modules/constructor/IngredientConstructor.vue";
+import stateIngredients from "@/mocks/stateIngredients";
+
 
 const state = reactive({
   name: "",
   chosenSize: sizes[0],
   chosenSauce: sauces[0],
   chosenDough: dough[0],
-  chosenIngridients: stateIngridients,
+  chosenIngredients: stateIngredients,
 })
 </script>
 
@@ -34,16 +35,16 @@ const state = reactive({
             <h2 class="title title--small sheet__title">Выберите ингредиенты</h2>
             <div class="sheet__content ingredients">
               <SauceConstructor :sauces="sauces" v-model="state.chosenSauce" />
-              <IngridientConstructor :ingridients="ingridients" v-model="state.chosenIngridients" />
+              <IngredientConstructor v-model="state.chosenIngredients" :ingredients="ingredients"  />
             </div>
           </div>
         </div>
-        <PizzaConstructor :state="state"></PizzaConstructor>
+        <PizzaConstructor :state="state" />
       </div>
       <h1>{{state.chosenSauce}}</h1>
       <h1>{{state.chosenSize}}</h1>
       <h1>{{state.chosenDough}}</h1>
-      <h1>{{state.chosenIngridients[0]}}</h1>
+      <h1>{{state.chosenIngredients[0]}}</h1>
     </form>
   </main>
 </template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps({
-  ingridients: {
+  ingredients: {
     type: Object,
     required: true,
   },
@@ -9,43 +9,43 @@ const props = defineProps({
     required: true,
   },
 });
-//const emit = defineEmits(["update:props.modelValue"]);
 
-const model = props.modelValue;
+const {modelValue} = props;
 
 const findQuantity = (id) => {
-  const x = model.filter((item) => item.id === id)[0].quantity;
+  const x = modelValue.filter((item) => item.id === id)[0].quantity;
   return x;
 }
 
-// const t = (id) => {
-//   emit("update:modelValue", ['ass', id])
-// }
+const emit = defineEmits(["update:modelValue"]);
+
 </script>
 
+
 <template>
-  <!-- ingridient list -->
   <div class="ingredients__filling">
     <p>Начинка:</p>
     <ul class="ingredients__list">
       <li
-        v-for="ingridient in props.ingridients"
-        :key="ingridient.id"
-        :title="ingridient.name"
+        v-for="ingredient of props.ingredients"
+        :key="ingredient.id"
+        :title="ingredient.name"
         class="ingredients__item">
-        <span class="filling filling--mushrooms">{{ingridient.name}}</span>
+        <span class="filling filling--mushrooms">{{ingredient.name}}</span>
         <div class="counter counter--orange ingredients__counter">
+
           <button type="button" class="counter__button counter__button--minus" >
             <span class="visually-hidden">Меньше</span>
           </button>
-          <input type="text" name="counter" class="counter__input" :value="findQuantity(ingridient.id)">
+          <input type="text" name="counter" class="counter__input" :value="findQuantity(ingredient.id)"  disabled>
           <button
             type="button"
             class="counter__button counter__button--plus"
-            :value="ingridient.id"
+            @click="emit('update:modelValue', ([{quantity: 1}, {quantity: 2}]))"
           >
             <span class="visually-hidden">Больше</span>
           </button>
+
         </div>
       </li>
     </ul>
